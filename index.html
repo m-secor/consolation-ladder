@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consolation Ladder — Pirates Forever</title>
+<meta name="description" content="Roto standings for the seeds 7-12 consolation bracket of the Pirates Forever fantasy baseball league.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%BE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#EEF1EC; --surface:#F7F9F5; --surface-2:#E7EBE3;
+  --ink:#12201A; --ink-soft:#3B4A42; --muted:#6B7A72; --line:#D3D9CE;
+  --turf:#1B7A4B; --turf-deep:#125838; --amber:#E8A33D; --amber-deep:#B9791F;
+  --h1:rgba(27,122,75,.06); --h2:rgba(27,122,75,.13); --h3:rgba(27,122,75,.22);
+  --h4:rgba(27,122,75,.33); --h5:rgba(27,122,75,.46); --h6:rgba(27,122,75,.62);
+  --crown:#E8A33D; --shadow:0 1px 2px rgba(18,32,26,.08),0 8px 24px rgba(18,32,26,.06);
+}
+:root:not([data-theme="light"]){ }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1613; --surface:#16211C; --surface-2:#1E2B24;
+    --ink:#E8ECE7; --ink-soft:#B7C2BA; --muted:#8B9990; --line:#2A382F;
+    --turf:#3FB574; --turf-deep:#2C8A57; --amber:#F0B45A; --amber-deep:#C98E33;
+    --h1:rgba(63,181,116,.08); --h2:rgba(63,181,116,.16); --h3:rgba(63,181,116,.26);
+    --h4:rgba(63,181,116,.38); --h5:rgba(63,181,116,.52); --h6:rgba(63,181,116,.70);
+    --crown:#F0B45A; --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.30);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1613; --surface:#16211C; --surface-2:#1E2B24;
+  --ink:#E8ECE7; --ink-soft:#B7C2BA; --muted:#8B9990; --line:#2A382F;
+  --turf:#3FB574; --turf-deep:#2C8A57; --amber:#F0B45A; --amber-deep:#C98E33;
+  --h1:rgba(63,181,116,.08); --h2:rgba(63,181,116,.16); --h3:rgba(63,181,116,.26);
+  --h4:rgba(63,181,116,.38); --h5:rgba(63,181,116,.52); --h6:rgba(63,181,116,.70);
+  --crown:#F0B45A; --shadow:0 1px 2px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.30);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:clamp(20px,4vw,48px);}
+.num{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums;}
+
+/* Masthead */
+.eyebrow{font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:.22em;
+  font-weight:500; font-size:.78rem; color:var(--turf);}
+h1.title{font-family:"Oswald",sans-serif; font-weight:700; text-transform:uppercase;
+  letter-spacing:.01em; line-height:.95; margin:.15em 0 .1em;
+  font-size:clamp(2.6rem,7vw,4.6rem); text-wrap:balance;}
+.sub{color:var(--ink-soft); font-size:1.02rem; margin:0;}
+.meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+.chip{display:inline-flex; align-items:center; gap:8px; padding:6px 12px;
+  border:1px solid var(--line); border-radius:999px; background:var(--surface);
+  font-size:.82rem; color:var(--ink-soft);}
+.chip b{color:var(--ink); font-weight:600;}
+.chip .dot{width:7px; height:7px; border-radius:50%; background:var(--turf);}
+.rule{height:3px; margin:26px 0 30px; border:0; border-radius:2px;
+  background:linear-gradient(90deg,var(--turf),var(--amber) 70%,transparent);}
+
+/* Leaderboard */
+.board{display:grid; gap:10px; margin-bottom:40px;}
+.row{display:grid; grid-template-columns:44px 1fr auto; align-items:center; gap:16px;
+  padding:14px 18px; background:var(--surface); border:1px solid var(--line);
+  border-radius:14px; box-shadow:var(--shadow); position:relative; overflow:hidden;}
+.row.lead{border-color:var(--amber);}
+.row.lead::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--amber);}
+.rank{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.5rem; text-align:center;
+  color:var(--muted);}
+.row.lead .rank{color:var(--amber-deep);}
+.tname{font-family:"Oswald",sans-serif; font-weight:600; font-size:1.28rem;
+  letter-spacing:.01em; line-height:1.05;}
+.tmeta{font-size:.78rem; color:var(--muted); margin-top:2px;}
+.crown{font-size:.9em;}
+.score{text-align:right; min-width:150px;}
+.rototot{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.7rem; line-height:1;}
+.rotolab{font-size:.66rem; text-transform:uppercase; letter-spacing:.14em; color:var(--muted);}
+.bar{height:6px; border-radius:3px; background:var(--surface-2); margin-top:8px; overflow:hidden;}
+.bar > i{display:block; height:100%; border-radius:3px;
+  background:linear-gradient(90deg,var(--turf-deep),var(--turf));}
+.row.lead .bar > i{background:linear-gradient(90deg,var(--amber-deep),var(--amber));}
+
+/* Section heading */
+.h2{font-family:"Oswald",sans-serif; text-transform:uppercase; letter-spacing:.06em;
+  font-weight:600; font-size:1.15rem; margin:0 0 16px;}
+
+/* Matrix */
+.scroll{overflow-x:auto; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow);}
+table{border-collapse:collapse; width:100%; background:var(--surface); font-size:.9rem;}
+th,td{padding:9px 8px; text-align:center; white-space:nowrap;}
+thead th{position:sticky; top:0; background:var(--surface-2); color:var(--ink-soft);
+  font-family:"Oswald",sans-serif; font-weight:600; letter-spacing:.04em; font-size:.8rem;
+  border-bottom:1px solid var(--line); z-index:2;}
+.grp-hit{color:var(--turf);} .grp-pit{color:var(--amber-deep);}
+tbody td{border-bottom:1px solid var(--line);}
+.tcell{text-align:left; position:sticky; left:0; background:var(--surface); z-index:1;
+  font-family:"Oswald",sans-serif; font-weight:600; font-size:.98rem; min-width:150px;
+  border-right:1px solid var(--line);}
+.tcell .s{font-family:"IBM Plex Sans"; font-weight:400; font-size:.7rem; color:var(--muted);}
+tbody tr:hover td{background:var(--surface-2);}
+tbody tr:hover .tcell{background:var(--surface-2);}
+.stat{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+.h1{background:var(--h1);} .h2c{background:var(--h2);} .h3{background:var(--h3);}
+.h4{background:var(--h4);} .h5{background:var(--h5);} .h6{background:var(--h6);}
+.winner{box-shadow:inset 0 0 0 2px var(--turf); border-radius:6px; font-weight:700;}
+.divcol{border-left:2px solid var(--line);}
+.rototd{font-family:"Oswald",sans-serif; font-weight:700; font-size:1.05rem;
+  border-left:2px solid var(--line); background:var(--surface-2);}
+
+/* Footer */
+footer{margin-top:34px; padding-top:22px; border-top:1px solid var(--line);
+  color:var(--muted); font-size:.82rem; display:grid; gap:6px;}
+footer b{color:var(--ink-soft);}
+.legend{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:2px 0 8px;}
+.legend .swatch{display:inline-block; width:22px; height:12px; border-radius:3px; border:1px solid var(--line);}
+@media (max-width:560px){
+  .row{grid-template-columns:34px 1fr auto; gap:10px; padding:12px;}
+  .score{min-width:104px;}
+}
+@media (prefers-reduced-motion:no-preference){
+  .row{transition:transform .12s ease;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pirates Forever &middot; Consolation Bracket</div>
+    <h1 class="title">Consolation Ladder</h1>
+    <p class="sub">Rotisserie standings for regular-season seeds 7&ndash;12, accumulated across the consolation playoff weeks.</p>
+    <div class="meta">
+      <span class="chip"><span class="dot"></span>Window: <b>Playoff period 20</b></span>
+      <span class="chip">6 teams &middot; <b>14 categories</b></span>
+      <span class="chip">Updated <b>Monday, August 24, 2026 at 12:18 PM</b></span>
+    </div>
+  </header>
+  <hr class="rule">
+
+  <section class="board">
+    
+      <div class="row lead">
+        <div class="rank num">1</div>
+        <div>
+          <div class="tname">HAUS WALOR <span class="crown">👑</span></div>
+          <div class="tmeta">Seed #7 &middot; BWAL</div>
+        </div>
+        <div class="score">
+          <div class="rototot num">68.5</div>
+          <div class="rotolab">roto pts / 84</div>
+          <div class="bar"><i style="width:81.5%"></i></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rank num">2</div>
+        <div>
+          <div class="tname">Fore Skenes</div>
+          <div class="tmeta">Seed #12 &middot; REA</div>
+        </div>
+        <div class="score">
+          <div class="rototot num">59.5</div>
+          <div class="rotolab">roto pts / 84</div>
+          <div class="bar"><i style="width:70.8%"></i></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rank num">3</div>
+        <div>
+          <div class="tname">Shane&#x27;s Sneaky Team</div>
+          <div class="tmeta">Seed #10 &middot; SST</div>
+        </div>
+        <div class="score">
+          <div class="rototot num">50.5</div>
+          <div class="rotolab">roto pts / 84</div>
+          <div class="bar"><i style="width:60.1%"></i></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rank num">4</div>
+        <div>
+          <div class="tname">Suck My Kang</div>
+          <div class="tmeta">Seed #9 &middot; SMK</div>
+        </div>
+        <div class="score">
+          <div class="rototot num">43</div>
+          <div class="rotolab">roto pts / 84</div>
+          <div class="bar"><i style="width:51.2%"></i></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rank num">5</div>
+        <div>
+          <div class="tname">Snells Like Team Spirit</div>
+          <div class="tmeta">Seed #11 &middot; RAD</div>
+        </div>
+        <div class="score">
+          <div class="rototot num">37</div>
+          <div class="rotolab">roto pts / 84</div>
+          <div class="bar"><i style="width:44.0%"></i></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="rank num">6</div>
+        <div>
+          <div class="tname">Backdoor Slider</div>
+          <div class="tmeta">Seed #8 &middot; LUBE</div>
+        </div>
+        <div class="score">
+          <div class="rototot num">35.5</div>
+          <div class="rotolab">roto pts / 84</div>
+          <div class="bar"><i style="width:42.3%"></i></div>
+        </div>
+      </div>
+  </section>
+
+  <h2 class="h2">Category Breakdown</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="tcell">Team</th><th class="grp-hit">R</th><th class="grp-hit">H</th><th class="grp-hit">HR</th><th class="grp-hit">RBI</th><th class="grp-hit">SB</th><th class="grp-hit">TB</th><th class="grp-hit">OBP</th><th class="grp-pit divcol">W</th><th class="grp-pit">K</th><th class="grp-pit">SV</th><th class="grp-pit">HLD</th><th class="grp-pit">QS</th><th class="grp-pit">ERA</th><th class="grp-pit">WHIP</th><th class="rototd">ROTO</th></tr></thead>
+      <tbody><tr><td class="tcell">HAUS WALOR<div class="s">#7 BWAL</div></td><td class="stat h5" title="5 pts">34</td><td class="stat h3" title="3 pts">59</td><td class="stat h6 winner" title="6 pts">14</td><td class="stat h3" title="3 pts">28</td><td class="stat h6 winner" title="6 pts">6</td><td class="stat h6 winner" title="6 pts">110</td><td class="stat h6 winner" title="6 pts">0.351</td><td class="stat h3 divcol" title="3 pts">4</td><td class="stat h5" title="5 pts">63</td><td class="stat h5 winner" title="5.5 pts">6</td><td class="stat h3" title="2.5 pts">1</td><td class="stat h5 winner" title="5.5 pts">5</td><td class="stat h6 winner" title="6 pts">2.19</td><td class="stat h6 winner" title="6 pts">1.05</td><td class="rototd num">68.5</td></tr><tr><td class="tcell">Fore Skenes<div class="s">#12 REA</div></td><td class="stat h4" title="4 pts">32</td><td class="stat h6 winner" title="6 pts">62</td><td class="stat h3" title="3 pts">9</td><td class="stat h6 winner" title="6 pts">42</td><td class="stat h5" title="5 pts">4</td><td class="stat h4" title="4 pts">105</td><td class="stat h4" title="4 pts">0.343</td><td class="stat h3 divcol" title="3 pts">4</td><td class="stat h3" title="3 pts">60</td><td class="stat h2c" title="2 pts">2</td><td class="stat h4" title="4 pts">2</td><td class="stat h5 winner" title="5.5 pts">5</td><td class="stat h5" title="5 pts">3.52</td><td class="stat h5" title="5 pts">1.10</td><td class="rototd num">59.5</td></tr><tr><td class="tcell">Shane&#x27;s Sneaky Team<div class="s">#10 SST</div></td><td class="stat h6 winner" title="6 pts">38</td><td class="stat h5" title="4.5 pts">61</td><td class="stat h5" title="5 pts">11</td><td class="stat h5" title="5 pts">31</td><td class="stat h2c" title="2 pts">2</td><td class="stat h5" title="5 pts">108</td><td class="stat h5" title="5 pts">0.347</td><td class="stat h5 winner divcol" title="5.5 pts">6</td><td class="stat h2c" title="2 pts">56</td><td class="stat h4" title="4 pts">4</td><td class="stat h1" title="1 pts">0</td><td class="stat h3" title="2.5 pts">3</td><td class="stat h1" title="1 pts">6.00</td><td class="stat h2c" title="2 pts">1.42</td><td class="rototd num">50.5</td></tr><tr><td class="tcell">Suck My Kang<div class="s">#9 SMK</div></td><td class="stat h1" title="1 pts">27</td><td class="stat h5" title="4.5 pts">61</td><td class="stat h1" title="1.5 pts">4</td><td class="stat h3" title="3 pts">28</td><td class="stat h4" title="4 pts">3</td><td class="stat h2c" title="2 pts">86</td><td class="stat h1" title="1 pts">0.315</td><td class="stat h5 winner divcol" title="5.5 pts">6</td><td class="stat h4" title="4 pts">61</td><td class="stat h5 winner" title="5.5 pts">6</td><td class="stat h5 winner" title="5.5 pts">4</td><td class="stat h3" title="2.5 pts">3</td><td class="stat h2c" title="2 pts">5.61</td><td class="stat h1" title="1 pts">1.46</td><td class="rototd num">43</td></tr><tr><td class="tcell">Snells Like Team Spirit<div class="s">#11 RAD</div></td><td class="stat h3" title="3 pts">31</td><td class="stat h2c" title="2 pts">57</td><td class="stat h4" title="4 pts">10</td><td class="stat h3" title="3 pts">28</td><td class="stat h2c" title="2 pts">2</td><td class="stat h3" title="3 pts">99</td><td class="stat h3" title="3 pts">0.329</td><td class="stat h1 divcol" title="1 pts">2</td><td class="stat h1" title="1 pts">45</td><td class="stat h3" title="3 pts">3</td><td class="stat h3" title="2.5 pts">1</td><td class="stat h3" title="2.5 pts">3</td><td class="stat h4" title="4 pts">3.83</td><td class="stat h3" title="3 pts">1.32</td><td class="rototd num">37</td></tr><tr><td class="tcell">Backdoor Slider<div class="s">#8 LUBE</div></td><td class="stat h2c" title="2 pts">29</td><td class="stat h1" title="1 pts">53</td><td class="stat h1" title="1.5 pts">4</td><td class="stat h1" title="1 pts">26</td><td class="stat h2c" title="2 pts">2</td><td class="stat h1" title="1 pts">79</td><td class="stat h2c" title="2 pts">0.320</td><td class="stat h3 divcol" title="3 pts">4</td><td class="stat h6 winner" title="6 pts">66</td><td class="stat h1" title="1 pts">1</td><td class="stat h5 winner" title="5.5 pts">4</td><td class="stat h3" title="2.5 pts">3</td><td class="stat h3" title="3 pts">3.98</td><td class="stat h4" title="4 pts">1.23</td><td class="rototd num">35.5</td></tr></tbody>
+    </table>
+  </div>
+  <div class="legend">
+    <span class="num" style="font-size:.78rem;color:var(--muted);">Rank heat:</span>
+    <span style="font-size:.76rem;color:var(--muted);">worst</span>
+    <span class="swatch h1"></span><span class="swatch h2c"></span><span class="swatch h3"></span>
+    <span class="swatch h4"></span><span class="swatch h5"></span><span class="swatch h6"></span>
+    <span style="font-size:.76rem;color:var(--muted);">best</span>
+  </div>
+
+  <footer>
+    <div class="legend"><span class="swatch winner" style="background:var(--surface);"></span>
+      <span>Green ring = category leader</span></div>
+    <div><b>How it works:</b> in each of the 14 categories the 6 teams are ranked; the best gets 6 points down to 1 for the worst (ties split evenly). Counting stats are summed across the consolation weeks; OBP, ERA and WHIP are rebuilt from their raw components so multi-week rates stay accurate.</div>
+    <div><b>Source:</b> ESPN Fantasy &mdash; Pirates Forever. Refreshes automatically each day.</div>
+  </footer>
+</div>
+</body>
+</html>
